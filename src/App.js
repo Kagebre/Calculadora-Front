@@ -1,30 +1,13 @@
 import React, { useState } from 'react';
 import api from './api.js';
 import './App.css';
-import sqlite3 from 'sqlite3';
 
-function consultar_operacoes() {
-  const db = new sqlite3.Database('calculadora_das_trevas.db');
-
-  db.all('SELECT * FROM operacoes ORDER BY id DESC LIMIT 10', (err, rows) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    rows.forEach(row => {
-      console.log(`${row.operacao} = ${row.resultado}`);
-    });
-
-    db.close();
-  });
-}
 
 function App() {
   const [resultado, setResultado] = useState('');
   const [numerosDigitados, setNumerosDigitados] = useState('');
   const [ultimaOperacao, setUltimaOperacao] = useState('');
-  const sqlite3 = require('sqlite3').verbose();
+
 
   async function getCalculo() {
     try {
@@ -82,25 +65,6 @@ function App() {
     setNumerosDigitados(numerosDigitados.slice(0, -1));
   }
 
-  function mostrarOperacoes() {
-    const operacoesContainer = document.getElementById('operacoesContainer');
-
-    fetch('/api/operacoes')
-      .then(response => response.json())
-      .then(data => {
-        operacoesContainer.innerHTML = '';
-        data.forEach(operacao => {
-          const divOperacao = document.createElement('div');
-          divOperacao.textContent = `${operacao.operacao} = ${operacao.resultado}`;
-          operacoesContainer.appendChild(divOperacao);
-        });
-      })
-      .catch(error => {
-        console.error(error);
-        operacoesContainer.textContent = 'Erro ao recuperar as operações.';
-      });
-  }
-
   return (
     <div className="App" >
       <h1 className="calculator-title">CALCULADORA DAS TREVAS</h1>
@@ -111,9 +75,9 @@ function App() {
       <div> 
         <button className="highlight calculator-button" onClick={apagatudo}>C</button>
 
-        <button name="M" onClick={mostrarOperacoes}className="calculator-button">M</button>
+        <button name="M" className="calculator-button">M</button>
         <button name="CE" onClick={apagarUltimo}className="calculator-button">←</button>
-        <button name="H" onClick={consultar_operacoes} className="calculator-button">H</button>
+        <button name="H"  className="calculator-button">H</button>
 
         </div>   
       <div>
