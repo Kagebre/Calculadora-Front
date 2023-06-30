@@ -8,10 +8,15 @@ function App() {
   const [numerosDigitados, setNumerosDigitados] = useState('');
   const [ultimaOperacao, setUltimaOperacao] = useState('');
 
+  async function getOperacoes(){
+    const chamaOp = await api.get ('/consultar_operacoes');
+    console.log(chamaOp.data)
+
+  }
 
   async function getCalculo() {
     try {
-      const resultCalc = await api.get('/api/calculo', {
+      const resultCalc = await api.get('/calculo', {
         params: { numerosDigitados: numerosDigitados }
       });
       console.log('resultCalc', resultCalc);
@@ -77,7 +82,7 @@ function App() {
 
         <button name="M" className="calculator-button">M</button>
         <button name="CE" onClick={apagarUltimo}className="calculator-button">←</button>
-        <button name="H"  className="calculator-button">H</button>
+        <button name="H"  onClick={getOperacoes}className="calculator-button">H</button>
 
         </div>   
       <div>
@@ -105,7 +110,7 @@ function App() {
         <button name="." onClick={handleClick}className="calculator-button">.</button>
         <button name="0" onClick={handleClick}className="calculator-button">0</button>
         <button name="+" onClick={handleClick}className="calculator-button">+</button>
-        <button className="highlightequal-button" onClick={getCalculo}>=</button>
+        <button className="highlight equal-button" onClick={getCalculo}>=</button>
         <button name=")" onClick={handleClick}className="calculator-button">)</button>
         <div>        
 
