@@ -21,6 +21,19 @@
   
 }
 
+.tabela-operacoes {
+  background-color: #ffffffd7;
+  border: 3px solid #00000096;
+  padding: 20px;
+  margin-left: 300px;
+  margin-right: 300px;
+  font-size: 15px;
+  text-align: center;
+  font-family: Arial;
+  color:rgb(25, 0, 255);
+  
+}
+
 .result-window {
   background-color: #000000c2;
   border: 10px solid #81818196;
